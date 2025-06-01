@@ -1,0 +1,12 @@
+extends ../layouts/layout
+
+block content
+  .container
+  h2= title
+  ul.resource-list
+    li.resource-item.card Total de logs: #{stats.totalLogs}
+    li.resource-item.card Ingestões (SIP): #{stats.ingests}
+    li.resource-item.card Exportações (DIP): #{stats.exports}
+    li.resource-item.card Erros: #{stats.errors}
+    li.resource-item.card Visualizações de homepage: #{stats.homeViews}
+  p: a.nav-link(href="/admin") Voltar

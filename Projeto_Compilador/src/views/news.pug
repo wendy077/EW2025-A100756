@@ -1,0 +1,19 @@
+extends layouts/layout
+
+block content
+  h2= title
+
+  if news && news.length
+    each item in news
+      .news-item
+        h3.news-title= item.title
+        p.news-date Publicada em #{new Date(item.createdAt).toLocaleDateString()}
+
+        .news-content
+          | !{item.content}
+
+        hr
+  else
+    p Não existem notícias para apresentar.
+
+  p: a.nav-link(href="/") Voltar

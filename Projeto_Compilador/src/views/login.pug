@@ -1,0 +1,16 @@
+extends layouts/layout
+
+block content
+  .container
+  h2 Login
+  form.form.login-form(method="post", action="/login")
+    .form-group
+      label(for="username") Username
+      input.form-control(type="text", id="username", name="username", required)
+    .form-group
+      label(for="password") Password
+      input.form-control(type="password", id="password", name="password", required)
+    .form-group
+      button.btn(type="submit") Entrar
+
+  p: a.nav-link(href="/") Voltar

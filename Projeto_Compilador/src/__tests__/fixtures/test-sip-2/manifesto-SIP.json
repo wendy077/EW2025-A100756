@@ -1,0 +1,25 @@
+{
+  "version": "0.97",
+  "payload": [
+    {
+      "filename": "tungtung-video.mp4",
+      "metadata": "metadata/tungtung-video.json",
+      "checksum": "44004271bfd17a8f676206a5e8425fdf9d1de4a0bf4601a3c32c978cb9a2d9c9"
+    },
+    {
+      "filename": "txt-lorem.txt",
+      "metadata": "metadata/txt-lorem.json",
+      "checksum": "ca4974b7e8538aba9103bedef89f4426bc95f4c5a4f36d2ac2754290fa745b79"
+    },
+    {
+      "filename": "doc-lorem.pdf",
+      "metadata": "metadata/doc-lorem.json",
+      "checksum": "e83014e71fc8e772b7689a3f1c8628a2ef2852a1a38e31bddaf823615570e709"
+    },
+    {
+      "filename": "tungtung-audio.mp3",
+      "metadata": "metadata/tungtung-audio.json",
+      "checksum": "1d818e91400f4a1f892f1b0442d312d2b32a62e2ce26c4c6851126e434d237af"
+    }
+  ]
+}

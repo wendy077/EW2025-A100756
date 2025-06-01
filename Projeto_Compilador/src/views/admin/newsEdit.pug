@@ -1,0 +1,23 @@
+extends ../layouts/layout
+
+block content
+  .container
+  h2= title
+  form.form.form(method="post", action=`http://localhost:3001/api/admin/news/${news._id}`, enctype="application/x-www-form-urlencoded", data-ajax, data-redirect="/admin/news")
+    input.form-control(type="hidden", name="_method", value="PUT")
+
+    div
+      label(for="title") Título
+      input#title(type="text", name="title", required, value=news.title)
+
+    div
+      label(for="content") Conteúdo
+      textarea#content(name="content", required)= news.content
+
+    div
+      label(for="visible") Visível?
+      input#visible(type="checkbox", name="visible", value="on", checked=news.visible)
+
+    div.button-group
+      button.btn(type="submit") 💾 Guardar Alterações
+      a.button.btn(href="/admin/news") Cancelar

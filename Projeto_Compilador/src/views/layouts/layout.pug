@@ -1,0 +1,84 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Eu Digital | #{title}
+    link(rel="stylesheet", href="/css/styles.css")
+    link(rel="stylesheet", href="/css/modal.css")
+  body
+    header.navbar
+      .container
+        h1 Eu Digital
+
+    main.container
+      block content
+
+    footer.footer
+      .container
+        p © 2025 Eu Digital Project
+
+    if user
+      script.
+        window.currentUserId = "#{user._id}";
+    else
+      script.
+        window.currentUserId = null;
+
+
+    script.
+      function showToast(msg, isError = false) {
+        const el = document.createElement('div');
+        el.textContent = msg;
+        el.style = `
+          position: fixed; bottom: 1rem; right: 1rem;
+          background: ${isError ? '#c00' : '#080'};
+          color: white; padding: 1rem; border-radius: 4px;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          z-index: 9999;
+        `;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+      }
+
+      document.addEventListener('submit', async e => {
+        const form = e.target;
+        if (!form.matches('[data-ajax]')) return;
+        e.preventDefault();
+
+        const url    = form.action;
+        const method = form.querySelector('[name="_method"]')
+                       ? form.querySelector('[name="_method"]').value.toUpperCase()
+                       : form.method.toUpperCase();
+
+        let fetchOptions = { method, headers: { 'Accept': 'application/json' } };
+
+        if (form.enctype === 'multipart/form-data') {
+          fetchOptions.body = new FormData(form);
+        } else {
+          const params = new URLSearchParams();
+          for (const [k,v] of new FormData(form).entries()) {
+            params.append(k, v);
+          }
+          fetchOptions.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+          fetchOptions.body = params.toString();
+        }
+
+        try {
+          const res  = await fetch(url, fetchOptions);
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
+          showToast(data.message || 'OK');
+
+          const redirectTo = form.dataset.redirect;
+          if (redirectTo) {
+            setTimeout(() => window.location.href = redirectTo, 800);
+          } else {
+            setTimeout(() => window.location.reload(), 800);
+          }
+        } catch (err) {
+          showToast(err.message, true);
+        }
+      });
+
+    script(src="/js/modal.js")

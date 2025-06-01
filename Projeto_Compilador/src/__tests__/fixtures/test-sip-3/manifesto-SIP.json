@@ -1,0 +1,15 @@
+{
+  "version": "0.97",
+  "payload": [
+    {
+      "filename": "metadados-teste.md",
+      "metadata": "metadata/metadados-teste.json",
+      "checksum": "73a70c425f82e5ffd8f9ba941bcaa4bfa99ce71ec9848d137ce29d23c85febc4"
+    },
+    {
+      "filename": "tabela-teste.csv",
+      "metadata": "metadata/tabela-teste.json",
+      "checksum": "6ee9c481b05159e82eeadce2a64e97954cf432cd3f212b7788ad6a946071dce9"
+    }
+  ]
+}

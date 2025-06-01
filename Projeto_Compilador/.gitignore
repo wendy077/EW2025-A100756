@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# VSCode
+.vscode/
+
+# dotenv
+.env
+.env.*
+
+# Uploads e Logs
+src/uploads/
+src/logs/
+
+# Docker
+data/
+
+# tmp files
+tmp/
+tmp_sips/
+
+# other
+.DS_Store

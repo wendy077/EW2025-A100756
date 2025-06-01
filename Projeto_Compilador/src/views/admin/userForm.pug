@@ -1,0 +1,22 @@
+extends ../layouts/layout
+
+block content
+  .container
+  h2= title
+  form.form.form(method="post", action="http://localhost:3001/api/admin/users", data-ajax, data-redirect="/admin/users")
+    div
+      label Username
+      input.form-control(type="text", name="username", value=user.username || '')
+    div
+      label Email
+      input.form-control(type="email", name="email", value=user.email || '')
+    div
+      label Password
+      input.form-control(type="password", name="password")
+    div
+      label Role
+      select.form-select.form-select(name="role")
+        option(value="user", selected=user.role=='user') user
+        option(value="admin", selected=user.role=='admin') admin
+    button.btn(type="submit") Guardar
+  p: a.nav-link(href="/admin/users") Voltar

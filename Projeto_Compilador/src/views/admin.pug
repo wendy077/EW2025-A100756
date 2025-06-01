@@ -1,0 +1,13 @@
+extends layouts/layout
+
+block content
+  .container
+  .container
+  h2 Admin Dashboard
+  p Olá #{user.username}, estás na área de administração.
+  ul.resource-list
+    li.resource-item.card: a.nav-link(href="/admin/users")      Gerir utilizadores
+    li.resource-item.card: a.nav-link(href="/admin/resources")  Gerir recursos
+    li.resource-item.card: a.nav-link(href="/admin/news")       Gerir notícias
+    li.resource-item.card: a.nav-link(href="/admin/stats")      Ver estatísticas
+  p: a.nav-link(href="/") Voltar

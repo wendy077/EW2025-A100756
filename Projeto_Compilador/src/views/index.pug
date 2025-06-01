@@ -1,0 +1,67 @@
+extends layouts/layout
+
+block content
+  .container
+    if user
+      .div-user-header(style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.8rem;")
+        span Olá, #{user.username}!
+        if user.role === 'admin'
+          a.button.btn(href="/admin") Admin Page
+        a.button.btn(href="/news") Notícias
+        a.button.btn(href="/logout") Logout
+    else
+      .div-user-header(style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.8rem;")
+        span Bem‐vindo, visitante!
+        a.button.btn(href="/news") Notícias
+        a.button.btn(href="/login") Login
+        a.button.btn(href="/register") Registar
+
+  hr
+  form.form(method="get", action="/")
+    .filters-grid
+      .search-bar
+        input.form-control(
+          type="text"
+          name="search"
+          placeholder="Procurar recurso..."
+          value=filters.search
+        )
+
+      .category-date
+        select.form-select(name="tag")
+          option(value="") Todas as categorias
+          each t in tagOptions
+            option(value=t selected=(filters.tag===t))= t
+        input.form-control(type="date" name="dateFrom" value=filters.dateFrom)
+        input.form-control(type="date" name="dateTo"   value=filters.dateTo)
+
+      .filter-btn
+        button.btn(type="submit") Filtrar
+
+  if resources.length
+    ul.resource-list
+      each r in resources
+        li.resource-item.card
+          h3= r.metadata.titulo
+          span.tag(class=`tag-${r.metadata.tipo ? r.metadata.tipo.toLowerCase() : 'default'}`)= r.metadata.tipo
+          p Tipo: #{r.metadata.tipo} | Categorias: #{r.metadata.tags.join(', ')}
+          p Data: #{new Date(r.metadata.dataCriacao).toLocaleDateString()}
+          if user && r.metadata.publicador === user.username
+            span.tag Proprietário
+          else
+            span.tag Público
+          a.button.btn(href="#", data-id=r._id) Ver
+          form(method="post", action=`http://localhost:3001/api/admin/resources/${r._id}/export`, style="display:inline")
+            button.btn(type="submit") 📦 Exportar
+  else
+    p Não há recursos para mostrar.
+
+  if user
+    form.form.upload-form(method="post", action="http://localhost:3001/api/admin/resources", enctype="multipart/form-data", data-ajax)
+      .form-group
+        label(for="sip") Escolher ficheiro ZIP
+        input.form-control(type="file", id="sip", name="sip")
+      .form-group
+        button.btn(type="submit") Upload
+
+  include partials/resourceModal.pug
